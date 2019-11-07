@@ -1,16 +1,20 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios"
 import "./App.css";
-import Card from "./Components/Card"
+import Title from "./Components/Title"
+import Date from "./Components/Date"
+import Image from "./Components/Image"
+import Explanation from "./Components/Explanation"
+import SpaceCarousel from "./Components/SpaceCarousel"
 
 function App() {
-  const [nasaImg, setNasaImg] = useState([]);
+  const [nasaData, setNasaData] = useState([]);
   useEffect(() => {
 
     axios.get("https://api.nasa.gov/planetary/apod?api_key=HeJ9yb3WaxSY1faBvrEJLfH4brmlYkRaYxo3eOPK")
     .then(res => {
       console.log(res.data);
-      setNasaImg(res.data);
+      setNasaData(res.data);
     });
 
   }, []);
@@ -18,8 +22,13 @@ function App() {
   return (
     <div className="App">
 
-<header><h1>NASA potd</h1></header>
-      <Card title={nasaImg.title} url={nasaImg.url} explanation={nasaImg.explanation} date={nasaImg.date} /> 
+      <Title title={nasaData.title} />
+      <Date date={nasaData.date} /> 
+      <Explanation explanation={nasaData.explanation} />
+      <Image url={nasaData.url} />
+
+      < h1>MORE PHOTOS OF SPAAAACE</h1>
+      <SpaceCarousel />
     </div>
   );
 }
